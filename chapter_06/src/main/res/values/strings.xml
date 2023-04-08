@@ -1,0 +1,8 @@
+<resources >
+    <string name = "app_name" >locDVD</string >
+    <string name="annee_de_sortie">"Année de sortie : %d"</string>
+    <string name="titre_du_film">Titre du film</string>
+    <string name="annee_de_sortie_libelle">Année de sortie</string>
+    <string name="acteurs">Acteurs</string>
+    <string name="resume">Résumé</string>
+</resources >
