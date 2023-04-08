@@ -36,6 +36,9 @@ public class DVDAdapter extends ArrayAdapter<DVD> {
         
         DVD dvd = getItem( pos );
         
+        //- La réf du dvd courant est stockée dans la vue
+        view.setTag( dvd );
+        
         TextView titre = view.findViewById( R.id.listItemDVD_titre );
         TextView annee = view.findViewById( R.id.listItemDVD_annee );
         TextView resume = view.findViewById( R.id.listItemDVD_resume );

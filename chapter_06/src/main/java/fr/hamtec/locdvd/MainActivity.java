@@ -1,7 +1,10 @@
 package fr.hamtec.locdvd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,11 +25,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView( R.layout.activity_main );
         list = findViewById( R.id.list );
         
+        list.setOnItemClickListener( new AdapterView.OnItemClickListener( ) {
+            @Override
+            public void onItemClick( AdapterView < ? > parent, View view, int position, long id ) {
+                
+                startViewDVDActivity( id );
+                
+            }
+        } );
+        
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locdvd.prefs", Context.MODE_PRIVATE );
         
         if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
             readEmbbeddedData();
         }
+        
+    }
+    private void startViewDVDActivity( long dvdId){
+        
+        Intent intent = new Intent(this, ViewDVDActivity.class);
+        intent.putExtra( "dvdId", dvdId );
+        startActivity( intent );
         
     }
     
