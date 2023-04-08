@@ -1,4 +1,4 @@
-package fr.hamtec.charter_05;
+package fr.hamtec.locdvd;
 
 import org.junit.Test;
 

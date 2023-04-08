@@ -1,4 +1,4 @@
-package fr.hamtec.charter_05;
+package fr.hamtec.locdvd;
 
 import android.os.Bundle;
 import android.text.InputType;

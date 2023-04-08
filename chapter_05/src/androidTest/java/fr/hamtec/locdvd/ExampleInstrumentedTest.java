@@ -1,4 +1,4 @@
-package fr.hamtec.charter_05;
+package fr.hamtec.locdvd;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -20,6 +20,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext( ) {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation( ).getTargetContext( );
-        assertEquals( "fr.hamtec.charter_05", appContext.getPackageName( ) );
+        assertEquals( "fr.hamtec.locdvd", appContext.getPackageName( ) );
     }
 }

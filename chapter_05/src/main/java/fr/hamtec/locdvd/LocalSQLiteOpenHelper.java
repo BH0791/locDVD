@@ -1,4 +1,4 @@
-package fr.hamtec.charter_05;
+package fr.hamtec.locdvd;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,7 @@ public class LocalSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "locDVD.db";
     private static final int DB_VERSION = 1;
     
-    public LocalSQLiteOpenHelper( Context context) {
+    public LocalSQLiteOpenHelper( Context context ) {
         super( context, DB_NAME, null, DB_VERSION );
     }
     
@@ -21,14 +21,6 @@ public class LocalSQLiteOpenHelper extends SQLiteOpenHelper {
     
     @Override
     public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
-        // TODO onUpgrade provisoire
-        for ( int i = oldVersion; i < newVersion; i++ ){
-            int versionToUpdate = i + 1;
-            if ( versionToUpdate == 2 ){
-                // Code pour mettre la base de données en version 2
-            }else  if ( versionToUpdate == 3 ){
-                // Code pour mettre la base de données en version 3
-            }
-        }
+        // TODO onUpgrade a écrire
     }
 }
