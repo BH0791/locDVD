@@ -22,21 +22,12 @@
             android:text="Année"
             android:layout_marginTop="16dp"
             android:textSize="15sp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:text="acteur 1"
-            android:id="@+id/acteur1"/>
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:text="acteur 2"
-            android:id="@+id/acteur2"/>
+    
+    <LinearLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/layoutActeurs"/>
 
     <TextView
             android:layout_width="match_parent"

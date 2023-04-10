@@ -1,6 +1,8 @@
 package fr.hamtec.locdvd;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,36 +10,44 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ViewDVDActivity extends AppCompatActivity {
     TextView txtTitreDVD;
     TextView txtAnneeDVD;
-    TextView txtActeur1;
-    TextView txtActeur2;
     TextView txtResumeFilm;
+    LinearLayout layoutActeurs;
+    DVD dvd;
+    
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
+        
+        //- Affectation du fichier de layout
         setContentView(R.layout.activity_viewdvd);
 
+        //-Obtention des références sur les composants
         txtTitreDVD = findViewById(R.id.titreDVD);
         txtAnneeDVD = findViewById(R.id.anneeDVD);
-        txtActeur1 = findViewById(R.id.acteur1);
-        txtActeur2 = findViewById(R.id.acteur2);
         txtResumeFilm = findViewById(R.id.resumeFilm);
+        layoutActeurs = findViewById( R.id.layoutActeurs );
+        
+        Intent intent = getIntent();
+        long dvdId = intent.getLongExtra( "dvdId", -1 );
+        
+        dvd = DVD.getDVD( this, dvdId );
+    
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        txtTitreDVD.setText("Les vacances du petit Nicolas");
-        txtAnneeDVD.setText(String.format(getString(R.string.annee_de_sortie), 2014));
-        txtActeur1.setText("Valérie Lemercier");
-        txtActeur2.setText("Kad Merad");
-        String resume = "C'est la fin de l'année scolaire. Le moment tant " +
-                "attendu des vacances est arrivé. Le petit Nicolas, " +
-                "ses parents et Mémé prennent la route en direction " +
-                "de la mer, et s'installent pour quelques temps " +
-                "à l'Hôtel Beau-Rivage. Sur la plage, " +
-                "Nicolas se fait vite de nouveaux copais";
-        txtResumeFilm.setText(resume);
+        txtTitreDVD.setText(dvd.getTitre());
+        txtAnneeDVD.setText(String.format(getString(R.string.annee_de_sortie), dvd.getAnnee()));
+        
+        for ( String acteur : dvd.getActeurs() ){
+            TextView textView = new TextView( this );
+            textView.setText( acteur );
+            layoutActeurs.addView( textView );
+        }
+        
+        txtResumeFilm.setText(dvd.getResume());
 
     }
 }
