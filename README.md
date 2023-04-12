@@ -7,6 +7,7 @@ LocDVD permet notament de visualiser une liste de DVD, d'ajouter des DVD en sais
 + [Mod-04](https://github.com/BH0791/locDVD/tree/master/chapter_04) Consultation et saisie de données
 + [Mod-05](https://github.com/BH0791/locDVD/tree/master/chapter_05) Persistance des données
 + [Mod-06](https://github.com/BH0791/locDVD/tree/master/chapter_06) Contrôle avancés
++ [Mod-07](https://github.com/BH0791/locDVD/tree/master/chapter_07) Les fragments
 +  En cours d'étude et de développement.
 
 
