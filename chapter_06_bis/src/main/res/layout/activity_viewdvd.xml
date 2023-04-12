@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:layout_margin="8dp">
+
+    <TextView
+            android:id="@+id/titreDVD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal|top"
+            android:text="Titre du DVD"
+            android:textSize="22sp"
+    />
+    <TextView
+            android:id="@+id/anneeDVD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Année"
+            android:layout_marginTop="16dp"
+            android:textSize="15sp"/>
+    
+    <LinearLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/layoutActeurs"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:text="résumé"
+            android:id="@+id/resumeFilm"
+            android:minLines="5"
+            android:maxLines="15"/>
+    <TextView
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/date_dernier_visionnage"
+            android:textSize="15sp"
+            android:id="@+id/dateVisionnage"/>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_dernier_visionnage"
+            android:id="@+id/setDateVisionnage"/>
+
+</LinearLayout>
