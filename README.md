@@ -1,4 +1,4 @@
-# locDVD
+># locDVD
 Développez une application Android mod/mod.
 LocDVD permet notament de visualiser une liste de DVD, d'ajouter des DVD en saisissant les informations les concernant, d'importer des données à partir d'un fichier text, de faire des interrogations de bases de données Internet...
 
@@ -7,9 +7,11 @@ LocDVD permet notament de visualiser une liste de DVD, d'ajouter des DVD en sais
 + [Mod-04](https://github.com/BH0791/locDVD/tree/master/chapter_04) Consultation et saisie de données
 + [Mod-05](https://github.com/BH0791/locDVD/tree/master/chapter_05) Persistance des données
 + [Mod-06](https://github.com/BH0791/locDVD/tree/master/chapter_06) Contrôle avancés
++ [Mod-06_bis](https://github.com/BH0791/locDVD/tree/master/chapter_06_bis) Ajout d'un champ date de visionnage
 + [Mod-07](https://github.com/BH0791/locDVD/tree/master/chapter_07) Les fragments
-+  En cours d'étude et de développement.
++  *En cours d'étude et de développement.*
 
 
 ---
-Support livre *Sylvain HEBUTENER (ENI) 2017*
+> ###### Support livre 
+>> *Sylvain HEBUTENER (ENI) 2017*
