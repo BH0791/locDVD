@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LocalSQLiteOpenHelper extends SQLiteOpenHelper {
     
-    private static final String DB_NAME = "LocDVD.db";
+    private static final String DB_NAME = "LocDVD-v1.db";
     private static final int DB_VERSION = 1;
     
     public LocalSQLiteOpenHelper( Context context ) {

@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
     }
     
     @Override
-    protected void onPostResume( ) {
-        super.onPostResume( );
-        
+    protected void onResume( ) {
+        super.onResume( );
         ArrayList<DVD> dvdList = DVD.getDVDList( MainActivity.this );
         
         DVDAdapter dvdAdapter = new DVDAdapter( this, dvdList );
         list.setAdapter( dvdAdapter );
+        
     }
     
     /**
@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 
                 if ( data != null && data.length == 4 ){
                     DVD dvd = new DVD();
-                    dvd.setTitre(data[0]);
-                    dvd.setAnnee(Integer.decode(data[1]));
-                    dvd.setActeurs(data[2].split(","));
-                    dvd.setResume(data[3]);
+                    dvd.titre = data[0];
+                    dvd.annee = Integer.decode(data[1]);
+                    dvd.acteurs = data[2].split(",");
+                    dvd.resume = data[3];
                     
                     dvd.insert( this );
                     
@@ -95,15 +95,17 @@ public class MainActivity extends AppCompatActivity {
         }catch ( IOException e ){
             e.printStackTrace();
         }finally {
-            try {
-                bufferedReader.close();
-                reader.close();
-                SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs",Context.MODE_PRIVATE);//??
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("enbeddedDataInsered",true);
-                editor.commit();
-            } catch ( IOException e ) {
-                e.printStackTrace();
+            if(bufferedReader != null) {
+                try {
+                    bufferedReader.close( );
+                    reader.close( );
+                    SharedPreferences sharedPreferences = getSharedPreferences( "fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );//??
+                    SharedPreferences.Editor editor = sharedPreferences.edit( );
+                    editor.putBoolean( "enbeddedDataInsered", true );
+                    editor.commit( );
+                } catch ( IOException e ) {
+                    e.printStackTrace( );
+                }
             }
         }
         
