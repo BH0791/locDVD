@@ -2,8 +2,10 @@ package fr.hamtec.locdvd;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +32,8 @@ public class ViewDVDActivity extends AppCompatActivity {
         Intent intent = getIntent();
         long dvdId = intent.getLongExtra( "dvdId", -1 );
         
+        Log.i( "HAMID", "==> " + dvdId );
+        
         dvd = DVD.getDVD( this, dvdId );
     
     }
@@ -37,7 +41,7 @@ public class ViewDVDActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        Log.i( "HAMID", "==> " + dvd.getTitre());
         txtTitreDVD.setText(dvd.getTitre());
         txtAnneeDVD.setText(String.format(getString(R.string.annee_de_sortie), dvd.getAnnee()));
         
