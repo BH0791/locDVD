@@ -37,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locdvd.prefs", Context.MODE_PRIVATE );
         
         if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
-            readEmbbeddedData();
+            if ( sharedPreferences.contains( "enbeddedDataInsered" ) ){
+                //- TODO
+            }else {
+                readEmbbeddedData();
+            }
         }
         
     }

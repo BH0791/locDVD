@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class DVDAdapter extends ArrayAdapter<DVD> {
         super( context, -1, objects );
         this.context = context;
     }
+    
     
     @SuppressLint( "InflateParams" )
     @NonNull

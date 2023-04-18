@@ -3,9 +3,11 @@ package fr.hamtec.locdvd;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -29,39 +31,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick( AdapterView < ? > parent, View view, int position, long id ) {
                 
+                
                 startViewDVDActivity( id );
                 
             }
         } );
         
-        SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locdvd.prefs", Context.MODE_PRIVATE );
+        
+        SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );
+        
         
         if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
-            readEmbbeddedData();
+            
+            if ( sharedPreferences.contains( "enbeddedDataInsered" ) ){
+                //- TODO
+            }else {
+                readEmbbeddedData();
+            }
+           
         }
-        
-    }
-    private void startViewDVDActivity( long dvdId){
-        
-        Intent intent = new Intent(this, ViewDVDActivity.class);
-        intent.putExtra( "dvdId", dvdId );
-        startActivity( intent );
-        
-    }
-    
-    @Override
-    protected void onResume( ) {
-        super.onResume( );
-        ArrayList<DVD> dvdList = DVD.getDVDList( MainActivity.this );
-        
-        DVDAdapter dvdAdapter = new DVDAdapter( this, dvdList );
-        list.setAdapter( dvdAdapter );
         
     }
     
     /**
      * Lire les données et les enregistrer
      */
+    
+    
     private void readEmbbeddedData(){
         
         InputStream file = null;
@@ -99,10 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     bufferedReader.close( );
                     reader.close( );
+                    //-ici
                     SharedPreferences sharedPreferences = getSharedPreferences( "fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );//??
                     SharedPreferences.Editor editor = sharedPreferences.edit( );
                     editor.putBoolean( "enbeddedDataInsered", true );
-                    editor.commit( );
+                    editor.apply( );
                 } catch ( IOException e ) {
                     e.printStackTrace( );
                 }
@@ -112,4 +109,24 @@ public class MainActivity extends AppCompatActivity {
         
         
     }
+    
+    private void startViewDVDActivity( long dvdId){
+        
+        Intent intent = new Intent(this, ViewDVDActivity.class);
+        intent.putExtra( "dvdId", dvdId );
+        startActivity( intent );
+        
+    }
+    
+    @Override
+    protected void onResume( ) {
+        super.onResume( );
+        ArrayList<DVD> dvdList = DVD.getDVDList( MainActivity.this );
+        
+        DVDAdapter dvdAdapter = new DVDAdapter( this, dvdList );
+        list.setAdapter( dvdAdapter );
+        
+    }
+    
+    
 }

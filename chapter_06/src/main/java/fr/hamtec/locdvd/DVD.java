@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,6 @@ public class DVD {
     }
 //-okey
     public static DVD getDVD(Context context, long id){
-
         DVD dvd = null;
 
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
