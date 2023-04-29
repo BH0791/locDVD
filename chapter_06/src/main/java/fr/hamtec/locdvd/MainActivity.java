@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 
                 
                 startViewDVDActivity( id );
+                Log.i( "HAMID", "0: "+id );
                 
             }
         } );

@@ -32,7 +32,6 @@ public class ViewDVDActivity extends AppCompatActivity {
         Intent intent = getIntent();
         long dvdId = intent.getLongExtra( "dvdId", -1 );
         
-        Log.i( "HAMID", "==> " + dvdId );
         
         dvd = DVD.getDVD( this, dvdId );
     
@@ -41,7 +40,7 @@ public class ViewDVDActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i( "HAMID", "==> " + dvd.getTitre());
+        Log.i( "HAMID", "==> 2: " + dvd.getTitre());
         txtTitreDVD.setText(dvd.getTitre());
         txtAnneeDVD.setText(String.format(getString(R.string.annee_de_sortie), dvd.getAnnee()));
         

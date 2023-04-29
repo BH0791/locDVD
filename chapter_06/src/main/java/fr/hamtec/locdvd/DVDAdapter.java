@@ -2,6 +2,7 @@ package fr.hamtec.locdvd;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,6 @@ public class DVDAdapter extends ArrayAdapter<DVD> {
         }
         
         DVD dvd = getItem( pos );
-        
         //- La réf du dvd courant est stockée dans la vue
         view.setTag( dvd );
         

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.function.BinaryOperator;
 
 public class DVD {
     
@@ -32,13 +33,19 @@ public class DVD {
     }
     
     
-//-okey
+    /**
+     * Méthode qui va fournir la liste de tous les DVD enregistrés par l'utilisateur
+     * orderBy = "titre" cause problème => a réglé
+     * @param context
+     * @return
+     */
     public static ArrayList<DVD> getDVDList(Context context){
-
+        
+        
         ArrayList<DVD> listDVD = new ArrayList<>();
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-
+        
         Cursor cursor = db.query(
                 true,
                 "DVD",
@@ -47,7 +54,7 @@ public class DVD {
                 null,
                 null,
                 null,
-                "titre",
+                null,
                 null
                 );
 
@@ -60,10 +67,19 @@ public class DVD {
 
         return listDVD;
     }
-//-okey
+    
+    /**
+     *  Permet d'obtenir un DVD à partir de son identifiant de base de donnée
+     * @param context
+     * @param id
+     * @return
+     */
     public static DVD getDVD(Context context, long id){
         DVD dvd = null;
-
+        id += 1;    //-Cause bug avec id=0
+        
+        Log.i( "HAMID", "getDVD id+1 :"+id );
+        
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -83,6 +99,9 @@ public class DVD {
 
         if (cursor.moveToFirst()){
             dvd = new DVD(cursor);
+            
+            Log.i( "HAMID", dvd.getTitre() );
+            
         }
 
         cursor.close();
