@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         } );
         
         
+        // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );
         
         
