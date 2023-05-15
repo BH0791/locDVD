@@ -47,15 +47,15 @@ public class DVD {
         SQLiteDatabase db = helper.getReadableDatabase();
         
         Cursor cursor = db.query(
-                true,
-                "DVD",
-                new String[]{"id", "titre", "annee", "acteurs", "resume"},
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
+                true,                                                   // true si vous souhaitez que chaque ligne soit unique, false dans le cas contraire.
+                "DVD",                                                        // nom de la table sur laquelle compiler la requête.
+                new String[]{"id", "titre", "annee", "acteurs", "resume"},    // liste des colonnes à renvoyer
+                null,                                                         // filtre déclarant les lignes à renvoyer, mis en forme Clause SQL WHERE
+                null,                                                         // Vous pouvez inclure des ?s dans la sélection, qui sera remplacés par les valeurs de selectionArgs
+                null,                                                         // Un filtre déclarant comment regrouper des lignes, au format SQL Clause GROUP BY
+                null,                                                         // Un filtre déclare les groupes de lignes à inclure dans le curseur, si le regroupement de lignes est utilisé, formaté en tant que SQL HAVING
+                null,                                                         // Comment ordonner les lignes, au format en tant que clause SQL ORDER BY
+                null                                                          //Limite le nombre de lignes renvoyées par la requête, formaté en tant que clause LIMIT
                 );
 
         while (cursor.moveToNext()){
