@@ -43,6 +43,8 @@ public class DVD {
         
         
         ArrayList<DVD> listDVD = new ArrayList<>();
+        
+        //  getReadableDatabase() permet d'obtenir une référence sur la BD ouverte en lecture.
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
         
@@ -78,11 +80,10 @@ public class DVD {
         DVD dvd = null;
         id += 1;    //-Cause bug avec id=0
         
-        Log.i( "HAMID", "getDVD id+1 :"+id );
-        
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-
+        
+        // String.valueOf(id) peut être remplacé par id régle java avec +
         String where = "id = " + String.valueOf(id);
 
         Cursor cursor = db.query(
@@ -99,9 +100,6 @@ public class DVD {
 
         if (cursor.moveToFirst()){
             dvd = new DVD(cursor);
-            
-            Log.i( "HAMID", dvd.getTitre() );
-            
         }
 
         cursor.close();

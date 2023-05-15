@@ -40,7 +40,6 @@ public class ViewDVDActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i( "HAMID", "==> 2: " + dvd.getTitre());
         txtTitreDVD.setText(dvd.getTitre());
         txtAnneeDVD.setText(String.format(getString(R.string.annee_de_sortie), dvd.getAnnee()));
         

@@ -31,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick( AdapterView < ? > parent, View view, int position, long id ) {
                 
-                
                 startViewDVDActivity( id );
-                Log.i( "HAMID", "0: "+id );
                 
             }
         } );
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 if ( data != null && data.length == 4 ){
                     DVD dvd = new DVD();
                     dvd.titre = data[0];
+                    //static Integer | valueOf(String s) -> static Integer | decode(String nm)
                     dvd.annee = Integer.decode(data[1]);
                     dvd.acteurs = data[2].split(",");
                     dvd.resume = data[3];
