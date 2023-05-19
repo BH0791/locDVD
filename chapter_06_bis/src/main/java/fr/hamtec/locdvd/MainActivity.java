@@ -3,9 +3,11 @@ package fr.hamtec.locdvd;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -34,38 +36,28 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
         
-        SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locdvd.prefs", Context.MODE_PRIVATE );
+        
+        // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
+        SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );
+        
         
         if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
+            
             if ( sharedPreferences.contains( "enbeddedDataInsered" ) ){
                 //- TODO
             }else {
                 readEmbbeddedData();
             }
+           
         }
         
-    }
-    private void startViewDVDActivity( long dvdId){
-        
-        Intent intent = new Intent(this, ViewDVDActivity.class);
-        intent.putExtra( "dvdId", dvdId );
-        startActivity( intent );
-        
-    }
-    
-    @Override
-    protected void onPostResume( ) {
-        super.onPostResume( );
-        
-        ArrayList<DVD> dvdList = DVD.getDVDList( MainActivity.this );
-        
-        DVDAdapter dvdAdapter = new DVDAdapter( this, dvdList );
-        list.setAdapter( dvdAdapter );
     }
     
     /**
      * Lire les données et les enregistrer
      */
+    
+    
     private void readEmbbeddedData(){
         
         InputStream file = null;
@@ -85,10 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 
                 if ( data != null && data.length == 4 ){
                     DVD dvd = new DVD();
-                    dvd.setTitre(data[0]);
-                    dvd.setAnnee(Integer.decode(data[1]));
-                    dvd.setActeurs(data[2].split(","));
-                    dvd.setResume(data[3]);
+                    dvd.titre = data[0];
+                    //static Integer | valueOf(String s) -> static Integer | decode(String nm)
+                    dvd.annee = Integer.decode(data[1]);
+                    dvd.acteurs = data[2].split(",");
+                    dvd.resume = data[3];
                     
                     dvd.insert( this );
                     
@@ -99,19 +92,42 @@ public class MainActivity extends AppCompatActivity {
         }catch ( IOException e ){
             e.printStackTrace();
         }finally {
-            try {
-                bufferedReader.close();
-                reader.close();
-                SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs",Context.MODE_PRIVATE);//??
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("enbeddedDataInsered",true);
-                editor.commit();
-            } catch ( IOException e ) {
-                e.printStackTrace();
+            if(bufferedReader != null) {
+                try {
+                    bufferedReader.close( );
+                    reader.close( );
+                    //-ici
+                    SharedPreferences sharedPreferences = getSharedPreferences( "fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );//??
+                    SharedPreferences.Editor editor = sharedPreferences.edit( );
+                    editor.putBoolean( "enbeddedDataInsered", true );
+                    editor.apply( );
+                } catch ( IOException e ) {
+                    e.printStackTrace( );
+                }
             }
         }
         
         
         
     }
+    
+    private void startViewDVDActivity( long dvdId){
+        
+        Intent intent = new Intent(this, ViewDVDActivity.class);
+        intent.putExtra( "dvdId", dvdId );
+        startActivity( intent );
+        
+    }
+    
+    @Override
+    protected void onResume( ) {
+        super.onResume( );
+        ArrayList<DVD> dvdList = DVD.getDVDList( MainActivity.this );
+        
+        DVDAdapter dvdAdapter = new DVDAdapter( this, dvdList );
+        list.setAdapter( dvdAdapter );
+        
+    }
+    
+    
 }

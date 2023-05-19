@@ -4,8 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.function.BinaryOperator;
 
 public class DVD {
     
@@ -14,7 +16,6 @@ public class DVD {
     int annee;
     String[] acteurs;
     String resume;
-    long dateVisionnage;
     
     public DVD(  ) {
 
@@ -32,23 +33,31 @@ public class DVD {
     }
     
     
-//-okey
+    /**
+     * Méthode qui va fournir la liste de tous les DVD enregistrés par l'utilisateur
+     * orderBy = "titre" cause problème => a réglé
+     * @param context
+     * @return
+     */
     public static ArrayList<DVD> getDVDList(Context context){
-
+        
+        
         ArrayList<DVD> listDVD = new ArrayList<>();
+        
+        //  getReadableDatabase() permet d'obtenir une référence sur la BD ouverte en lecture.
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-
+        
         Cursor cursor = db.query(
-                true,
-                "DVD",
-                new String[]{"id", "titre", "annee", "acteurs", "resume"},
-                null,
-                null,
-                null,
-                null,
-                "titre",
-                null
+                true,                                                   // true si vous souhaitez que chaque ligne soit unique, false dans le cas contraire.
+                "DVD",                                                        // nom de la table sur laquelle compiler la requête.
+                new String[]{"id", "titre", "annee", "acteurs", "resume"},    // liste des colonnes à renvoyer
+                null,                                                         // filtre déclarant les lignes à renvoyer, mis en forme Clause SQL WHERE
+                null,                                                         // Vous pouvez inclure des ?s dans la sélection, qui sera remplacés par les valeurs de selectionArgs
+                null,                                                         // Un filtre déclarant comment regrouper des lignes, au format SQL Clause GROUP BY
+                null,                                                         // Un filtre déclare les groupes de lignes à inclure dans le curseur, si le regroupement de lignes est utilisé, formaté en tant que SQL HAVING
+                null,                                                         // Comment ordonner les lignes, au format en tant que clause SQL ORDER BY
+                null                                                          //Limite le nombre de lignes renvoyées par la requête, formaté en tant que clause LIMIT
                 );
 
         while (cursor.moveToNext()){
@@ -60,14 +69,21 @@ public class DVD {
 
         return listDVD;
     }
-//-okey
+    
+    /**
+     *  Permet d'obtenir un DVD à partir de son identifiant de base de donnée
+     * @param context
+     * @param id
+     * @return
+     */
     public static DVD getDVD(Context context, long id){
-
         DVD dvd = null;
-
+        id += 1;    //-Cause bug avec id=0
+        
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
-
+        
+        // String.valueOf(id) peut être remplacé par id régle java avec +
         String where = "id = " + String.valueOf(id);
 
         Cursor cursor = db.query(
@@ -170,15 +186,7 @@ public class DVD {
         db.close();
 
     }
-    
-    public long getDateVisionnage( ) {
-        return dateVisionnage;
-    }
-    
-    public void setDateVisionnage( long dateVisionnage ) {
-        this.dateVisionnage = dateVisionnage;
-    }
-    
+
     public long getId( ) {
         return id;
     }
