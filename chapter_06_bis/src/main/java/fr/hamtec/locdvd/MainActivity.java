@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     dvd.annee = Integer.decode(data[1]);
                     dvd.acteurs = data[2].split(",");
                     dvd.resume = data[3];
-                    
                     dvd.insert( this );
                     
                 }
