@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LocalSQLiteOpenHelper extends SQLiteOpenHelper {
     
-    private static final String DB_NAME = "LocDVD.db";
+    private static final String DB_NAME = "LocDVD-v2.db";
     private static final int DB_VERSION = 2;
     
     public LocalSQLiteOpenHelper( Context context ) {
@@ -19,21 +19,27 @@ public class LocalSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL( sqlFilTable );
     }
     
-    @Override
-    public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
-        for(int i = oldVersion;i<newVersion;i++)  {
-            int versionToUpdate = i+1;
-            if(versionToUpdate==2) {
-                upgradeToVersion2(db);
-            } else if(versionToUpdate==3) {
-                // Code pour la mise à jour de la base de données à la version 3
-            }
-            //[...]
-        }
-    }
-    
+    /**
+     * Ajouter un champs date de visionnage
+     * @param db base
+     */
     private void upgradeToVersion2(SQLiteDatabase db){
+        
         String sqlCommand = "ALTER TABLE DVD ADD COLUMN dateVisionnage NUMERIC";
         db.execSQL( sqlCommand );
+        
+    }
+    
+    @Override
+    public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion ) {
+        for ( int i = oldVersion; i<newVersion; i++ ){
+            int versionToUpdate = i+1;
+            
+            if ( versionToUpdate == 2 ){
+                upgradeToVersion2( db );
+            }else if ( versionToUpdate == 3 ){
+                // Code pour la version 3
+            }
+        }
     }
 }
