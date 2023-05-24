@@ -5,4 +5,7 @@
     <string name="annee_de_sortie_libelle">Année de sortie</string>
     <string name="acteurs">Acteurs</string>
     <string name="resume">Résumé</string>
+    <string name = "date_de_visionnage" >Date de visionnage</string >
+    <string name = "date_dernier_visionnage" >Date du dernier visionnage</string >
+    <string name = "date_dernier_visionnage_avec_valeur" >date dernier visionnage avec valeur : %s</string >
 </resources >
