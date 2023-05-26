@@ -10,6 +10,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
@@ -19,23 +22,30 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onResume( ) {
+        super.onResume( );
+        ListDVDFragment listDVDFragment = new ListDVDFragment();
+        openFrament(listDVDFragment);
+    }
     
-    ListView list;
+    private void openFrament( Fragment fragment ) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        
+        transaction.replace( R.id.main_placeHolder, fragment );
+        transaction.addToBackStack( null );
+        
+        transaction.commit();
+    }
     
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
-        list = findViewById( R.id.list );
         
-        list.setOnItemClickListener( new AdapterView.OnItemClickListener( ) {
-            @Override
-            public void onItemClick( AdapterView < ? > parent, View view, int position, long id ) {
-                
-                startViewDVDActivity( id );
-                
-            }
-        } );
+        
         
         
         // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
@@ -111,23 +121,9 @@ public class MainActivity extends AppCompatActivity {
         
     }
     
-    private void startViewDVDActivity( long dvdId){
-        
-        Intent intent = new Intent(this, ViewDVDActivity.class);
-        intent.putExtra( "dvdId", dvdId );
-        startActivity( intent );
-        
-    }
     
-    @Override
-    protected void onResume( ) {
-        super.onResume( );
-        ArrayList<DVD> dvdList = DVD.getDVDList( MainActivity.this );
-        
-        DVDAdapter dvdAdapter = new DVDAdapter( this, dvdList );
-        list.setAdapter( dvdAdapter );
-        
-    }
+    
+    
     
     
 }
