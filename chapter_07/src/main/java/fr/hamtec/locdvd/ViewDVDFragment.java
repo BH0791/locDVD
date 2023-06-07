@@ -4,44 +4,43 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
-public class ViewDVDActivity extends AppCompatActivity {
+public class ViewDVDFragment extends Fragment {
     TextView txtTitreDVD;
     TextView txtAnneeDVD;
     TextView txtResumeFilm;
-    LinearLayout layoutActeurs;
     TextView txtDateDernierVisionnage;
+    LinearLayout layoutActeurs;
     Button setDateVisionnage;
     DVD dvd;
     
     @Override
-    protected void onCreate( Bundle savedInstanceState ) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView( LayoutInflater inflater, ViewGroup contenair, Bundle savedInstanceState ) {
+        super.onCreate( savedInstanceState );
         
         //- Affectation du fichier de layout
-        setContentView(R.layout.activity_viewdvd);
-
+        View view = inflater.inflate(R.layout.activity_viewdvd, null);
+        
         //-Obtention des références sur les composants
-        txtTitreDVD = findViewById(R.id.titreDVD);
-        txtAnneeDVD = findViewById(R.id.anneeDVD);
-        txtResumeFilm = findViewById(R.id.resumeFilm);
-        layoutActeurs = findViewById( R.id.layoutActeurs );
+        txtTitreDVD = view.findViewById(R.id.titreDVD);
+        txtAnneeDVD = view.findViewById(R.id.anneeDVD);
+        txtResumeFilm = view.findViewById(R.id.resumeFilm);
+        txtResumeFilm = view.findViewById(R.id.resumeFilm);
+        layoutActeurs = view.findViewById( R.id.layoutActeurs );
         
-        setDateVisionnage = findViewById( R.id.setDateVisionnage );
-        txtDateDernierVisionnage = findViewById( R.id.dateVisionnage );
+        setDateVisionnage = view.findViewById( R.id.setDateVisionnage );
+        txtDateDernierVisionnage = view.findViewById( R.id.dateVisionnage );
         
-        Intent intent = getIntent();
-        long dvdId = intent.getLongExtra( "dvdId", -1 );
-        
-        
-        dvd = DVD.getDVD( this, dvdId );
+        long dvdId = getArguments().getLong( "dvdId", -1 );
+        dvd = DVD.getDVD( getActivity(), dvdId );
         
         setDateVisionnage.setOnClickListener( new View.OnClickListener( ) {
             @Override
@@ -51,7 +50,8 @@ public class ViewDVDActivity extends AppCompatActivity {
                 
             }
         } );
-    
+        
+        return view;
     }
     
     private void showDatePicker( ) {
@@ -65,7 +65,7 @@ public class ViewDVDActivity extends AppCompatActivity {
                 calendar.set( year,dayOfMonth, dayOfMonth );
                 
                 dvd.setDateVisionnage( calendar.getTimeInMillis() );
-                dvd.update( ViewDVDActivity.this );
+                dvd.update( getActivity() );
                 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 
@@ -80,20 +80,20 @@ public class ViewDVDActivity extends AppCompatActivity {
             calendar.setTimeInMillis( dvd.dateVisionnage );
         }
         
-        datePickerDialog = new DatePickerDialog( this, onDateSetListener, calendar.get( Calendar.YEAR ), calendar.get( Calendar.MONTH ), calendar.get( Calendar.DAY_OF_MONTH ) );
+        datePickerDialog = new DatePickerDialog( getActivity(), onDateSetListener, calendar.get( Calendar.YEAR ), calendar.get( Calendar.MONTH ), calendar.get( Calendar.DAY_OF_MONTH ) );
         
         datePickerDialog.show();
     
     }
     
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         txtTitreDVD.setText(dvd.getTitre());
         txtAnneeDVD.setText(String.format(getString(R.string.annee_de_sortie), dvd.getAnnee()));
         
         for ( String acteur : dvd.getActeurs() ){
-            TextView textView = new TextView( this );
+            TextView textView = new TextView( getActivity() );
             textView.setText( acteur );
             layoutActeurs.addView( textView );
         }

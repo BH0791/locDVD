@@ -22,7 +22,7 @@
         </activity>
         
         <activity android:name=".AddDVDActivity"/>
-        <activity android:name=".ViewDVDActivity"/>
+        <activity android:name=".ViewDVDFragment"/>
     </application >
 
 </manifest >

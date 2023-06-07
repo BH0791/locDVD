@@ -6,9 +6,9 @@
         android:padding="16dp">
     
     <FrameLayout
-            android:layout_width = "match_parent"
-            android:layout_height = "match_parent"
-            android:id="@+id/main_placeHolder"/>
+            android:id="@+id/main_placeHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
 </RelativeLayout>
