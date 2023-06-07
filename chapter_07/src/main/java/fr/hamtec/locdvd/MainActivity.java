@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListDVDFragment.OnDVDSelectedListener {
     @Override
     protected void onResume( ) {
         super.onResume( );
@@ -122,8 +122,10 @@ public class MainActivity extends AppCompatActivity {
     }
     
     
-    
-    
-    
-    
+    @Override
+    public void onDVDSelected( long dvdId ) {
+        
+        // TODO onDVDSelected
+        
+    }
 }

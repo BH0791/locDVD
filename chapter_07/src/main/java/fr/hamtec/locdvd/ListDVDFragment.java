@@ -1,5 +1,7 @@
 package fr.hamtec.locdvd;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +17,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class ListDVDFragment  extends Fragment {
+    
+    public interface OnDVDSelectedListener{
+        
+        void onDVDSelected(long dvdId);
+        // [...]
+        
+    }
+    
+    OnDVDSelectedListener onDVDSelectedListener;
     private ListView list;
+    
+    @Override
+    public void onAttach( @NotNull Context activity ) {
+        super.onAttach( activity );
+        // try/catch
+        onDVDSelectedListener = (OnDVDSelectedListener ) activity;
+    }
+    
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -30,8 +49,12 @@ public class ListDVDFragment  extends Fragment {
             @Override
             public void onItemClick( AdapterView < ? > parent, View view, int position, long id ) {
                 
-                startViewDVDActivity( id );
+                //startViewDVDActivity( id );
                 
+                if ( onDVDSelectedListener !=null ){
+                    DVD selectedDvd = (DVD ) view.getTag();
+                    onDVDSelectedListener.onDVDSelected( selectedDvd.id );
+                }
             }
         } );
         
