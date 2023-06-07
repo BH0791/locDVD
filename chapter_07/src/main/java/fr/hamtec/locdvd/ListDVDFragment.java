@@ -38,9 +38,7 @@ public class ListDVDFragment  extends Fragment {
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView( @NonNull @NotNull LayoutInflater inflater,
-                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
-                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState ) {
+    public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
         
         View view = inflater.inflate( R.layout.fragment_listdvd, null );
         list = view.findViewById( R.id.main_list );

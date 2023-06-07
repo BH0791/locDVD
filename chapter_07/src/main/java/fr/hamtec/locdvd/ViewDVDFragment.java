@@ -17,8 +17,8 @@ public class ViewDVDFragment extends Fragment {
     TextView txtTitreDVD;
     TextView txtAnneeDVD;
     TextView txtResumeFilm;
-    LinearLayout layoutActeurs;
     TextView txtDateDernierVisionnage;
+    LinearLayout layoutActeurs;
     Button setDateVisionnage;
     DVD dvd;
     
@@ -39,11 +39,8 @@ public class ViewDVDFragment extends Fragment {
         setDateVisionnage = view.findViewById( R.id.setDateVisionnage );
         txtDateDernierVisionnage = view.findViewById( R.id.dateVisionnage );
         
-        Intent intent = getActivity().getIntent();
-        long dvdId = intent.getLongExtra( "dvdId", -1 );
-        
-        
-        //dvd = DVD.getDVD( getActivity(), dvdId );
+        long dvdId = getArguments().getLong( "dvdId", -1 );
+        dvd = DVD.getDVD( getActivity(), dvdId );
         
         setDateVisionnage.setOnClickListener( new View.OnClickListener( ) {
             @Override
