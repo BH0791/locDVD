@@ -4,15 +4,13 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
-public class ViewDVDActivity extends AppCompatActivity {
+public class ViewDVDFragment extends AppCompatActivity {
     TextView txtTitreDVD;
     TextView txtAnneeDVD;
     TextView txtResumeFilm;
@@ -65,7 +63,7 @@ public class ViewDVDActivity extends AppCompatActivity {
                 calendar.set( year,dayOfMonth, dayOfMonth );
                 
                 dvd.setDateVisionnage( calendar.getTimeInMillis() );
-                dvd.update( ViewDVDActivity.this );
+                dvd.update( ViewDVDFragment.this );
                 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 

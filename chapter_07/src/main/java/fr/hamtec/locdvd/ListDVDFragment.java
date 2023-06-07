@@ -50,7 +50,7 @@ public class ListDVDFragment  extends Fragment {
     
     private void startViewDVDActivity( long dvdId){
         
-        Intent intent = new Intent(getActivity(), ViewDVDActivity.class);
+        Intent intent = new Intent(getActivity(), ViewDVDFragment.class);
         intent.putExtra( "dvdId", dvdId );
         startActivity( intent );
         
