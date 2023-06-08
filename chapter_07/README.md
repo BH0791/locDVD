@@ -5,7 +5,6 @@
 - Mise en place du layout
 - Modification de la vue détaillée
 - Gestion des fragment
-- bug avec tablette mais ok avec smartphone
 
 
 

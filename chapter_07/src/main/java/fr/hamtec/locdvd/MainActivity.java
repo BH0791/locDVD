@@ -2,6 +2,7 @@ package fr.hamtec.locdvd;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -105,13 +106,17 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
     
     private  void openDetailFragment(Fragment fragment){
         
+        Log.i( "HAMID", "méthode-openDetailFragment");
+        
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         
         if ( findViewById( R.id.detail_placeholder ) == null ){
             transaction.replace( R.id.main_placeHolder, fragment );
+            Log.i( "HAMID", "version smartphone");
         }else {
             transaction.replace( R.id.detail_placeholder, fragment );
+            Log.i( "HAMID", "version tablette");
         }
         
         transaction.addToBackStack( null );
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
     }
     
     private void startViewDVDActivity( long dvdId){
-        
+        Log.i( "HAMID", "méthode-startViewDVDActivity " + dvdId);
         ViewDVDFragment viewDVDFragment = new ViewDVDFragment();
         Bundle bundle = new Bundle();
         bundle.putLong( "dvdId", dvdId );
