@@ -8,4 +8,12 @@
     <string name = "date_de_visionnage" >Date de visionnage</string >
     <string name = "date_dernier_visionnage" >Date du dernier visionnage</string >
     <string name = "date_dernier_visionnage_avec_valeur" >date dernier visionnage : %s</string >
+    <string name = "reinitialisez" >Réinitialiser la basa de données</string >
+    <string name = "infos" >Informations</string >
+    
+    <string-array name = "drawer_Items">
+        <item>Acceuil</item>
+        <item>Nouveau DVD</item>
+    </string-array>
+    
 </resources >

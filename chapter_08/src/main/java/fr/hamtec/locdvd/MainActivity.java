@@ -1,8 +1,17 @@
 package fr.hamtec.locdvd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -22,6 +31,32 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         openFrament(listDVDFragment);
     }
     
+    @Override
+    public boolean onCreateOptionsMenu( Menu menu ) {
+        
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate( R.menu.menu_principal, menu );
+        
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
+        
+        switch (item.getItemId()) {
+            case R.id.menu_reinitialiser:
+                // l'entrée Réinitialiser la base a été sélectionnée => boîtes de dialogue
+                return true;
+                
+            case R.id.menu_informations:
+                // l'entrée Informations a été sélectionnée => boîtes de dialogue
+                return true;
+                
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     private void openFrament( Fragment fragment ) {
         
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -35,6 +70,29 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+        
+        ListView listDrawer = findViewById( R.id.main_drawerList );
+        String [] drawerItems = getResources().getStringArray( R.array.drawer_Items );
+        listDrawer.setAdapter( new ArrayAdapter<String>( this, R.layout.listitem_drawer, drawerItems  ) );
+        
+        listDrawer.setOnItemClickListener( new AdapterView.OnItemClickListener( ) {
+            @Override
+            public void onItemClick( AdapterView < ? > parent, View view, int pos, long id ) {
+                
+                if(pos==0) {
+                    Intent intent = new Intent(MainActivity.this,
+                            MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+                if(pos==1)
+                    startActivity(new Intent(MainActivity.this,
+                            AddDVDActivity.class));
+                
+            
+            }
+        } );
         
         // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );

@@ -86,7 +86,7 @@ public class DVD {
      */
     public static DVD getDVD(Context context, long id){
         DVD dvd = null;
-        id += 1;    //-Cause bug avec id=0
+        //id += 1;
         
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
         SQLiteDatabase db = helper.getReadableDatabase();
