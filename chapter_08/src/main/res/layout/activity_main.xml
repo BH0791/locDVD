@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:orientation="vertical"
+        android:id="@+id/main_drawer">
     
     <FrameLayout
             android:id="@+id/main_placeHolder"
@@ -11,9 +12,9 @@
             android:layout_height="match_parent"/>
     
     <ListView
-            android:id="@+id/main_drawerList"
-            android:layout_width = "240dp"
-            android:layout_height = "match_parent"
+            android:id="@+id/main_DrawerList"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
             android:background="#CCFFFF"
             android:layout_gravity="start"
             />

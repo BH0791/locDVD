@@ -3,4 +3,4 @@
 - Le navigation drawer
 - Modification du layout
 - Prise en charge par l'activité
-- Problème a l'affichage de la tablette
+- Manipuler le panneau de navigation

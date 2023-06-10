@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         
-        ListView listDrawer = findViewById( R.id.main_drawerList );
+        ListView listDrawer = findViewById( R.id.main_DrawerList );
         String [] drawerItems = getResources().getStringArray( R.array.drawer_Items );
         listDrawer.setAdapter( new ArrayAdapter<String>( this, R.layout.listitem_drawer, drawerItems  ) );
         
@@ -169,11 +169,11 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         
-        if ( findViewById( R.id.detail_placeholder ) == null ){
+        if ( findViewById( R.id.detail_placeHolder ) == null ){
             transaction.replace( R.id.main_placeHolder, fragment );
             Log.i( "HAMID", "version smartphone");
         }else {
-            transaction.replace( R.id.detail_placeholder, fragment );
+            transaction.replace( R.id.detail_placeHolder, fragment );
             Log.i( "HAMID", "version tablette");
         }
         
