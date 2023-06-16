@@ -42,4 +42,10 @@ public class LocalSQLiteOpenHelper extends SQLiteOpenHelper {
             }
         }
     }
+    
+    public static void deleteDatabase(Context context){
+        
+        context.deleteDatabase( DB_NAME );
+        
+    }
 }

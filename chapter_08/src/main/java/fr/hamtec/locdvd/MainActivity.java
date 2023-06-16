@@ -1,19 +1,21 @@
 package fr.hamtec.locdvd;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,6 +26,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity implements ListDVDFragment.OnDVDSelectedListener {
+    
+    DrawerLayout drawerLayout;
+    
     @Override
     protected void onResume( ) {
         super.onResume( );
@@ -46,10 +51,12 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         switch (item.getItemId()) {
             case R.id.menu_reinitialiser:
                 // l'entrée Réinitialiser la base a été sélectionnée => boîtes de dialogue
+                ensureReInitializeApp();
                 return true;
                 
             case R.id.menu_informations:
                 // l'entrée Informations a été sélectionnée => boîtes de dialogue
+                showInformations();
                 return true;
                 
             default:
@@ -71,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         
+        drawerLayout = findViewById( R.id.main_Drawer );
+        
         ListView listDrawer = findViewById( R.id.main_DrawerList );
         String [] drawerItems = getResources().getStringArray( R.array.drawer_Items );
         listDrawer.setAdapter( new ArrayAdapter<String>( this, R.layout.listitem_drawer, drawerItems  ) );
@@ -87,9 +96,8 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
                     startActivity(intent);
                 }
                 if(pos==1)
-                    startActivity(new Intent(MainActivity.this,
-                            AddDVDActivity.class));
-                
+                    startActivity(new Intent(MainActivity.this, AddDVDActivity.class));
+                    drawerLayout.closeDrawer( GravityCompat.START );
             
             }
         } );
@@ -107,6 +115,53 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
             }
            
         }
+        
+    }
+    
+    private void showInformations(){
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        builder.setTitle( R.string.infos );
+        builder.setPositiveButton( R.string.fermer, null );
+        
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate( R.layout.dialog_informations, null );
+        
+        TextView message = view.findViewById( R.id.dialog_message );
+        message.setText( R.string.informations_message );
+        message.setMovementMethod( new android.text.method.ScrollingMovementMethod() );
+        
+        builder.setView( view );
+        builder.create().show();
+        
+    }
+    
+    private void ensureReInitializeApp(){
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        builder.setTitle( R.string.confirmer_reinitialisation_titre );
+        builder.setMessage( R.string.confirmer_reinitilisation_message );
+        
+        builder.setNegativeButton( R.string.non, null );
+        builder.setPositiveButton( R.string.oui, new DialogInterface.OnClickListener( ) {
+            @Override
+            public void onClick( DialogInterface dialog, int which ) {
+                
+                LocalSQLiteOpenHelper.deleteDatabase( MainActivity.this );
+                readEmbbeddedData();
+                
+                Intent intent =new Intent(MainActivity.this, MainActivity.class);
+                intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                
+                startActivity( intent );
+                
+            }
+        } );
+        
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        
         
     }
    

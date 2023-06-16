@@ -4,3 +4,4 @@
 - Modification du layout
 - Prise en charge par l'activité
 - Manipuler le panneau de navigation
+- Afficher une boîte de dialog standard
