@@ -1,0 +1,18 @@
+## Persistance de données
+---
+- Introduction
+- Création et modification d'une base de données
+- Création de la base de données
+- Modification de la base de données
+- Manipulation des données
+- Création de la classe DVD
+- Requêtes de sélection
+- Requête d'enregistrement
+- Requête de suppression
+- Transaction
+- Sauvegarde des préférences utilisateurs
+- Lire et écrire dans un fichier
+- Intégrer un fichier de données
+- Lire les données et les enregistrer
+- Mémoriser la lecture du fichier
+- 
