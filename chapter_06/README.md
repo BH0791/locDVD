@@ -1,3 +1,20 @@
 ## Contrôles avancées
 ---
 - Les listes
+- Intégrer une liste
+- Intégrer un composant ListView
+- Déclaration d'un layout pour les éléments de la liste
+- Implémenter un adaptateur
+- Relier le composant ListView à l'adaptateur
+- Gérer le clic sur un élément
+- Afficher le DVD sélectionné
+- GridView, liste déroulante
+- Composant GridView
+- Liste déroulante
+- TimePicker/DataPicker
+- Ajout d'un champ date de visionnage
+- Saisie de la date de visionnage
+- Créer son propre composant réutilisable
+- Surcharger un composant de la plateforme
+- Définir des attributs personnalisés
+- Intégrer le composant dans le layout
