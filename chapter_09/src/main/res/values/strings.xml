@@ -17,7 +17,7 @@
     <string name = "fermer" >Fermer</string >
     <string name = "informations_message">
         "L'application LocDVD est l'application compagnon
-        du livre 'Développez une application Android', aux édition ENI.
+        du livre 'Développez une application Android', aux édition ENI. Mise à jour par HamidB
         \n\nElle a été entièrement développée en suivant le livre, et aborde les principaux domaine de la création d'applications
         pour tous les terminaux Android : de la création du projet en passant par la création sur le Play Store,
         l'adaptation pour tablette et smartphone, la programmation asynchrone, etc \n\n\n Bonne lecture !"
