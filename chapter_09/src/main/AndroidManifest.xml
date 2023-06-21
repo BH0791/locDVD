@@ -23,6 +23,10 @@
         
         <activity android:name=".AddDVDActivity"/>
         <activity android:name=".ViewDVDFragment"/>
+        
+        <service android:name = ".LocDVDIntentService">
+        
+        </service>
     </application >
 
 </manifest >
