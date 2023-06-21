@@ -1,10 +1,14 @@
 package fr.hamtec.locdvd;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.util.Pair;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,12 +32,124 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity implements ListDVDFragment.OnDVDSelectedListener {
     
     DrawerLayout drawerLayout;
+    private static final String TAG_FRAGMENT_LISTDVD = "FragmentListDVD";
+    
+    class AsyncReadEmbeddData extends AsyncTask<String, Integer, Boolean>{
+        
+        ProgressDialog progressDialog;
+        
+        @Override
+        protected void onPreExecute( ) {
+            // TODO - onPreExecute()
+            
+            progressDialog = new ProgressDialog( MainActivity.this );
+            progressDialog.setTitle( R.string.initialisation_de_la_base_de_donnees );
+            progressDialog.setIndeterminate( true );
+            progressDialog.setProgressStyle( ProgressDialog.STYLE_SPINNER );
+            progressDialog.show();
+        }
+        
+        @Override
+        protected void onPostExecute( Boolean aBoolean ) {
+            // TODO - onPostExecute
+            
+            progressDialog.dismiss();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            ListDVDFragment listDVDFragment = (ListDVDFragment)fragmentManager.findFragmentByTag( TAG_FRAGMENT_LISTDVD );
+            
+            if ( listDVDFragment != null ){
+                listDVDFragment.updateDVDList();
+            }
+        }
+        
+        @Override
+        protected void onProgressUpdate( Integer... values ) {
+            // TODO - onProgressUpdate
+            
+            progressDialog.setMessage( String.format( getString( R.string.x_dvd_inseres_dans_la_base ), values[0] ) );
+        }
+        
+        @SuppressLint( "WrongThread" )
+        @Override
+        protected Boolean doInBackground( String... params ) {
+            // TODO - doInBackground
+            
+            boolean result = false;
+            String dataFile = params[0];
+            InputStream file = null;
+            InputStreamReader reader = null;
+            BufferedReader bufferedReader = null;
+            
+            try {
+                
+                int counter = 0;
+                
+                file = getAssets().open( "data.txt" );
+                reader =new InputStreamReader( file );
+                bufferedReader = new BufferedReader( reader );
+                
+                String line = null;
+                
+                while ( ( line = bufferedReader.readLine( ) ) != null ){
+                    
+                    String[] data = line.split( "\\|" );
+                    
+                    if ( data != null && data.length == 4 ){
+                        DVD dvd = new DVD();
+                        dvd.titre = data[0];
+                        //static Integer | valueOf(String s) -> static Integer | decode(String nm)
+                        dvd.annee = Integer.decode(data[1]);
+                        dvd.acteurs = data[2].split(",");
+                        dvd.resume = data[3];
+                        dvd.insert( MainActivity.this );
+                        
+                        publishProgress( ++counter );      //sup avec annotation
+                        
+                        try {
+                            Thread.sleep( 1000 );
+                        }catch ( InterruptedException e ){
+                            e.printStackTrace();
+                        }
+                        
+                    }
+                }
+                
+            }catch ( IOException e ){
+                
+                e.printStackTrace();
+                
+            }finally {
+                if(bufferedReader != null) {
+                    try {
+                        
+                        bufferedReader.close( );
+                        reader.close( );
+                        //-ici
+                        SharedPreferences sharedPreferences = getSharedPreferences( "fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );//??
+                        SharedPreferences.Editor editor = sharedPreferences.edit( );
+                        editor.putBoolean( "enbeddedDataInsered", true );
+                        editor.apply( );        //- editor.commit()
+                        result = true;
+                        
+                    } catch ( IOException e ) {
+                        
+                        e.printStackTrace( );
+                        
+                    }
+                }
+            }
+            
+            return result;
+        }
+    }
+    
     
     @Override
     protected void onResume( ) {
         super.onResume( );
+        
         ListDVDFragment listDVDFragment = new ListDVDFragment();
-        openFrament(listDVDFragment);
+        openFrament(listDVDFragment, TAG_FRAGMENT_LISTDVD);
     }
     
     @Override
@@ -64,11 +180,11 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         }
     }
     
-    private void openFrament( Fragment fragment ) {
+    private void openFrament( Fragment fragment, String tag ) {
         
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace( R.id.main_placeHolder, fragment );
+        transaction.replace( R.id.main_placeHolder, fragment, tag );
         transaction.addToBackStack( null );
         transaction.commit();
     }
@@ -85,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         listDrawer.setAdapter( new ArrayAdapter<String>( this, R.layout.listitem_drawer, drawerItems  ) );
         
         listDrawer.setOnItemClickListener( new AdapterView.OnItemClickListener( ) {
+            @SuppressLint( "SuspiciousIndentation" )
             @Override
             public void onItemClick( AdapterView < ? > parent, View view, int pos, long id ) {
                 
@@ -150,11 +267,11 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
                 LocalSQLiteOpenHelper.deleteDatabase( MainActivity.this );
                 readEmbbeddedData();
                 
-                Intent intent =new Intent(MainActivity.this, MainActivity.class);
-                intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
+                //Intent intent =new Intent(MainActivity.this, MainActivity.class);
+                //intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                //intent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
                 
-                startActivity( intent );
+                //startActivity( intent );
                 
             }
         } );
@@ -167,53 +284,8 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
    
     private void readEmbbeddedData(){
         
-        InputStream file = null;
-        InputStreamReader reader = null;
-        BufferedReader bufferedReader = null;
-        
-        try {
-            file = getAssets().open( "data.txt" );
-            reader =new InputStreamReader( file );
-            bufferedReader = new BufferedReader( reader );
-            
-            String line = null;
-            
-            while ( ( line = bufferedReader.readLine( ) ) != null ){
-                
-                String[] data = line.split( "\\|" );
-                
-                if ( data != null && data.length == 4 ){
-                    DVD dvd = new DVD();
-                    dvd.titre = data[0];
-                    //static Integer | valueOf(String s) -> static Integer | decode(String nm)
-                    dvd.annee = Integer.decode(data[1]);
-                    dvd.acteurs = data[2].split(",");
-                    dvd.resume = data[3];
-                    dvd.insert( this );
-                    
-                }
-                
-            }
-            
-        }catch ( IOException e ){
-            e.printStackTrace();
-        }finally {
-            if(bufferedReader != null) {
-                try {
-                    bufferedReader.close( );
-                    reader.close( );
-                    //-ici
-                    SharedPreferences sharedPreferences = getSharedPreferences( "fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );//??
-                    SharedPreferences.Editor editor = sharedPreferences.edit( );
-                    editor.putBoolean( "enbeddedDataInsered", true );
-                    editor.apply( );
-                } catch ( IOException e ) {
-                    e.printStackTrace( );
-                }
-            }
-        }
-        
-        
+        AsyncReadEmbeddData asyncReadEmbeddData = new AsyncReadEmbeddData();
+        asyncReadEmbeddData.execute( "data.txt" );
         
     }
     

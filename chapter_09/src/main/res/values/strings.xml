@@ -22,10 +22,12 @@
         pour tous les terminaux Android : de la création du projet en passant par la création sur le Play Store,
         l'adaptation pour tablette et smartphone, la programmation asynchrone, etc \n\n\n Bonne lecture !"
     </string>
+    <string name = "initialisation_de_la_base_de_donnees" >"Initialisation de la base de données"</string >
+    <string name = "x_dvd_inseres_dans_la_base" >"%d DVD insérés dans la base"</string >
     
     <string-array name = "drawer_Items">
-        <item>Acceuil</item>
-        <item>Nouveau DVD</item>
+        <item>"Acceuil"</item>
+        <item>"Nouveau DVD"</item>
     </string-array>
     
 </resources >

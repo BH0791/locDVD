@@ -62,6 +62,12 @@ public class ListDVDFragment  extends Fragment {
     @Override
     public void onResume( ) {
         super.onResume( );
+        updateDVDList();
+        
+    }
+    
+    public void updateDVDList(){
+        
         ArrayList <DVD> dvdList = DVD.getDVDList( getActivity() );
         
         DVDAdapter dvdAdapter = new DVDAdapter( getActivity(), dvdList );
