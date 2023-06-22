@@ -1,6 +1,5 @@
 ## Consultation et saisie de données
 
----
 - Introduction
 - Création d'une nouvelle activité
 - Cycle de vie d'une activité
