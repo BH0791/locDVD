@@ -1,7 +1,4 @@
-
-<span style="color:green;font-weight:400;font-size:30px">
-    Consultation et saisie de données
-</span>
+## Consultation et saisie de données
 
 ---
 - Introduction
