@@ -2,7 +2,7 @@
 
 - Présentation de Volley
 - L'application LocDVD
-- Intégrer la bibliothèque Volley
+- Intégrer la bibliothèque Volley -> problem insert
 - Interroger un service web
 - Préparation
 - Demander les permissions
