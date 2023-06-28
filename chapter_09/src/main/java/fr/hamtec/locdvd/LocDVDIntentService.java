@@ -15,13 +15,14 @@ public class LocDVDIntentService extends IntentService {
     
     @Override
     protected void onHandleIntent( Intent intent ) {
+        
         //Récupérer les données étendues de l'intention.
         //public int getIntExtra (String name, int defaultValue)
         //1000 la valeur à renvoyer si aucune valeur du type souhaité n'est stockée avec le nom donné.
         //waitDuration Le nom de l'élément souhaité.
+        
         int waitDuration = intent.getIntExtra( "waitDurarion", 1000 );
         
-        Messenger messenger = intent.getParcelableExtra( "messager" );
         
         try {
             Thread.sleep( waitDuration );
@@ -29,12 +30,9 @@ public class LocDVDIntentService extends IntentService {
             e.printStackTrace();
         }
         
-        if ( messenger != null ){
-            Message message = Message.obtain();
-            Bundle replyData = new Bundle();
-            replyData.putString( "reply", "Le service est terminé" );
-            message.setData( replyData );
-        }
+        Intent resultIntent = new Intent( "LocDVD.ServiceEnded" );
+        resultIntent.putExtra( "replyMessage", "Le service a envoyé un broadcast" );
+        sendBroadcast( resultIntent );
         
     }
 }

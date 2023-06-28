@@ -2,10 +2,7 @@ package fr.hamtec.locdvd;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
@@ -323,6 +320,24 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         bundle.putLong( "dvdId", dvdId );
         viewDVDFragment.setArguments( bundle );
         openDetailFragment( viewDVDFragment );
+        
+    }
+    
+    private  void startService(){
+        
+        BroadcastReceiver myBroadcastReceiver = new BroadcastReceiver( ) {
+            @Override
+            public void onReceive( Context context, Intent intent ) {
+                String receiverMessage = intent.getStringExtra( "replyMessage" );
+                //[...]
+            }
+        };
+        
+        Intent intent = new Intent( MainActivity.this, LocDVDIntentService.class );
+        intent.putExtra( "waitDuration", 10_000 );
+        IntentFilter intentFilter = new IntentFilter("LocDVD.ServiceEnded");
+        registerReceiver( myBroadcastReceiver, intentFilter );
+        startService( intent );
         
     }
 }
