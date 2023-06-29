@@ -203,18 +203,20 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
             public void onItemClick( AdapterView < ? > parent, View view, int pos, long id ) {
                 
                 if(pos==0) {
-                    Intent intent = new Intent(MainActivity.this,
-                            MainActivity.class);
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 if(pos==1)
-                    startActivity(new Intent(MainActivity.this, AddDVDActivity.class));
-                    drawerLayout.closeDrawer( GravityCompat.START );
+                    startActivity(new Intent(MainActivity.this,
+                            AddDVDActivity.class));
+                if(pos==2) {
+                    SearchFragment searchFragment = new SearchFragment();
+                    openDetailFragment(searchFragment);
             
             }
-        } );
+        } });
         
         // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );

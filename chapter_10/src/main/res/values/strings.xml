@@ -24,10 +24,12 @@
     </string>
     <string name = "initialisation_de_la_base_de_donnees" >"Initialisation de la base de données"</string >
     <string name = "x_dvd_inseres_dans_la_base" >"%d DVD insérés dans la base"</string >
+    <string name = "recherche" >Recherche</string >
     
     <string-array name = "drawer_Items">
-        <item>"Acceuil"</item>
-        <item>"Nouveau DVD"</item>
+        <item>"  Acceuil"</item>
+        <item>"  Nouveau DVD"</item>
+        <item>"  Recherche"</item>
     </string-array>
     
 </resources >
