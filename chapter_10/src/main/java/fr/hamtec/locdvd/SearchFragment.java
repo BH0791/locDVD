@@ -41,6 +41,7 @@ public class SearchFragment  extends Fragment {
         Context context;
         public SearchListAdapter( Context context, List<Movie> movies ){
             super(context, R.layout.listitem_movie, movies);
+            this.context = context;
         }
         
         
@@ -70,9 +71,9 @@ public class SearchFragment  extends Fragment {
         }
     }
     
-    private EditText searchText;
-    private Button searchButton;
-    private ListView searchList;
+    EditText searchText;
+    Button searchButton;
+    ListView searchList;
     
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -110,6 +111,7 @@ public class SearchFragment  extends Fragment {
             String api_key = "62d96ef75676fba47c537de195f1b3c6";
             String titre = URLEncoder.encode( searchText.getText().toString(), "UTF-8" );
             String url = String.format( "https://api.themoviedb.org/3/search/movie?api_key=%s&query=%s&language=fr-FR", api_key, titre );
+            Log.d( "Recherche", "url :" + url );
             
             JsonObjectRequest request = new JsonObjectRequest(
                     Request.Method.GET,
@@ -137,11 +139,13 @@ public class SearchFragment  extends Fragment {
                 for ( int i = 0; i < jsonArray.length( ); i++ ) {
                     
                     JSONObject jsonObject = jsonArray.getJSONObject( i );
+                    
                     Movie movie = new Movie();
-                    movie.titre = jsonObject.getString( "titre" );
+                    movie.titre = jsonObject.getString( "title" );
                     movie.releaseDate = jsonObject.getString( "release_date" );
                     movie.movieId = jsonObject.getString( "id" );
                     movie.overview  = jsonObject.getString( "overview" );
+                    
                     listOfMovies.add( movie );
                     
                 }
@@ -159,6 +163,7 @@ public class SearchFragment  extends Fragment {
         @Override
         public void onErrorResponse( VolleyError error ) {
             //-->
+            Log.d( "Recherche", "Erreur " + error.getMessage() );
         }
     };
 }
