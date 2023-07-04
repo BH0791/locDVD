@@ -1,6 +1,7 @@
 package fr.hamtec.locdvd;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -78,6 +81,23 @@ public class SearchFragment  extends Fragment {
         @Override
         public void onResponse( JSONObject response ) {
             //-->
+            try {
+                
+                JSONArray jsonArray = response.getJSONArray( "results" );
+                
+                for ( int i = 0; i < jsonArray.length( ); i++ ) {
+                    
+                    JSONObject jsonObject = jsonArray.getJSONObject( i );
+                    String titre = jsonObject.getString( "titre" );
+                    String releaseDate = jsonObject.getString( "release_date" );
+                    String movieId = jsonObject.getString( "id" );
+                    String overview  = jsonObject.getString( "overview" );
+                    
+                }
+                
+            }catch ( JSONException e ){
+                Log.e( "JSON", e.getLocalizedMessage());
+            }
         }
     };
     
