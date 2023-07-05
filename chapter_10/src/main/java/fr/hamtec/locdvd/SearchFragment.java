@@ -1,6 +1,7 @@
 package fr.hamtec.locdvd;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,12 +10,15 @@ import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.LruCache;
 import androidx.fragment.app.Fragment;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment  extends Fragment {
+    
+    EditText searchText;
+    Button searchButton;
+    ListView searchList;
+    String api_key="62d96ef75676fba47c537de195f1b3c6";
+    
+    RequestQueue requestQueue;
+    ImageLoader imageLoader;
     
     public static class Movie{
         
@@ -57,23 +69,74 @@ public class SearchFragment  extends Fragment {
                 view = convertView;
             }
             
-            Movie movie = getItem( pos );
+            final Movie movie = getItem( pos );
             view.setTag( movie );
             
             TextView titre = view.findViewById( R.id.movie_titre );
             TextView dateSortie = view.findViewById( R.id.movie_releaseDate);
-            Button detailButton = view.findViewById( R.id.movie_detail );
+            final Button detailButton = view.findViewById( R.id.movie_detail );
+            final Button closeButton= view.findViewById(R.id.movie_closeDetail);
+            final RelativeLayout detailLayout = view.findViewById(R.id.movie_detailLayout);
+            final NetworkImageView detailPoster = view.findViewById(R.id.movie_poster);
+            final TextView detailPlot = view.findViewById(R.id.movie_plot);
+            
+            detailButton.setVisibility( View.VISIBLE );
+            detailLayout.setVisibility( View.GONE );
             
             titre.setText( movie.titre );
             dateSortie.setText( movie.releaseDate );
             
+            detailButton.setOnClickListener( new View.OnClickListener( ) {
+                @Override
+                public void onClick( View v ) {
+                    detailLayout.setVisibility( View.VISIBLE );
+                    detailButton.setVisibility( View.GONE );
+                    
+                    String url = String.format("https://api.themoviedb.org/3/movie/%s?api_key="+api_key+"&language=fr-FR", movie.movieId);
+                    
+                    JsonObjectRequest jsonObjectRequest;
+                    jsonObjectRequest = new JsonObjectRequest( Request.Method.GET, url, null, new Response.Listener<JSONObject>(){
+                        @Override
+                        public void onResponse( JSONObject response ) {
+                            //--
+                            try {
+                                
+                                String posterPath = response.getString( "poster_path" );
+                                String plot = response.getString( "overview" );
+                                detailPlot.setText( plot );
+                                
+                                String url = "https://image.tmdb.org/t/p/w500/" + posterPath;
+                                detailPoster.setImageUrl(url, getImageLoader());
+                                
+                            }catch ( JSONException e ){
+                                Log.e( "JSON", e.getLocalizedMessage() );
+                            }
+                        }
+                    },
+                            new Response.ErrorListener(){
+                                @Override
+                                public void onErrorResponse( VolleyError error ) {
+                                    Log.e( "DETAIL", error.getLocalizedMessage() );
+                                }
+                            }
+                            );
+                    
+                    getRequestQueue().add( jsonObjectRequest );
+                    
+                }
+            } );
+            
+            closeButton.setOnClickListener( new View.OnClickListener( ) {
+                @Override
+                public void onClick( View v ) {
+                    detailLayout.setVisibility( View.GONE );
+                    detailButton.setVisibility( View.VISIBLE );
+                }
+            } );
+            
             return view;
         }
     }
-    
-    EditText searchText;
-    Button searchButton;
-    ListView searchList;
     
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -96,13 +159,35 @@ public class SearchFragment  extends Fragment {
         return view;
     }
     
-    RequestQueue requestQueue;
     RequestQueue getRequestQueue() {
         if(requestQueue==null)
             requestQueue = Volley.newRequestQueue(getActivity());
         return requestQueue;
     }
     
+    ImageLoader getImageLoader()  {
+        
+        if(imageLoader==null) {
+            ImageLoader.ImageCache imageCache =  new ImageLoader.ImageCache( ) {
+                
+                LruCache<String, Bitmap> cache = new LruCache<>( 10 );
+                
+                public Bitmap getBitmap( String url ) {
+                    return cache.get( url );
+                }
+                
+                @Override
+                public void putBitmap( String url, Bitmap bitmap ) {
+                    cache.put( url, bitmap );
+                }
+            };
+            
+            imageLoader = new ImageLoader(getRequestQueue(), imageCache);
+            
+        }
+        
+        return imageLoader;
+    }
     
     private void launchSearch( ) {
         //-->
@@ -127,34 +212,36 @@ public class SearchFragment  extends Fragment {
         }
     }
     
-    private Response.Listener< JSONObject > jsonRequestListener = new Response.Listener < JSONObject >( ) {
+    private Response.Listener< JSONObject > jsonRequestListener = new Response.Listener <>( ) {
         @Override
         public void onResponse( JSONObject response ) {
             //-->
             try {
                 
-                ArrayList<Movie> listOfMovies = new ArrayList<>();
+                ArrayList < Movie > listOfMovies = new ArrayList <>( );
                 JSONArray jsonArray = response.getJSONArray( "results" );
                 
                 for ( int i = 0; i < jsonArray.length( ); i++ ) {
                     
                     JSONObject jsonObject = jsonArray.getJSONObject( i );
                     
-                    Movie movie = new Movie();
+                    Movie movie = new Movie( );
                     movie.titre = jsonObject.getString( "title" );
                     movie.releaseDate = jsonObject.getString( "release_date" );
                     movie.movieId = jsonObject.getString( "id" );
-                    movie.overview  = jsonObject.getString( "overview" );
+                    movie.overview = jsonObject.getString( "overview" );
                     
                     listOfMovies.add( movie );
                     
+                    Log.i( "HAMID", "Film : " + listOfMovies.get( i ) );
+                    
                 }
                 
-                SearchListAdapter searchListAdapter = new SearchListAdapter( getActivity(), listOfMovies );
+                SearchListAdapter searchListAdapter = new SearchListAdapter( getActivity( ), listOfMovies );
                 searchList.setAdapter( searchListAdapter );
                 
-            }catch ( JSONException e ){
-                Log.e( "JSON", e.getLocalizedMessage());
+            } catch ( JSONException e ) {
+                Log.e( "JSON", e.getLocalizedMessage( ) );
             }
         }
     };

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -212,9 +213,13 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
                 if(pos==2) {
                     SearchFragment searchFragment = new SearchFragment();
                     openDetailFragment(searchFragment);
-            
-            }
-        } });
+                }
+                Log.i( "HAMID", "avant" );
+                //Bug avec cette ligne
+                // TODO drawerLayout.closeDrawer( GravityCompat.START ); fermeture de fragement a voir
+                
+        }
+        });
         
         // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );
@@ -223,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
             
             if ( sharedPreferences.contains( "enbeddedDataInsered" ) ){
-                //- TODO
+                //- TODO Au démarrage le chargement de la db boucle if(){}
             }else {
                 readEmbbeddedData();
             }
