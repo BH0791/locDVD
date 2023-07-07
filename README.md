@@ -12,7 +12,7 @@ LocDVD permet notament de visualiser une liste de DVD, d'ajouter des DVD en sais
 + [Mod-08](https://github.com/BH0791/locDVD/tree/master/chapter_08) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Navigation et boîte de dialgue
 + [Mod-09](https://github.com/BH0791/locDVD/tree/master/chapter_09) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tâches asynchrones et services
 + [Mod-10](https://github.com/BH0791/locDVD/tree/master/chapter_10) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Réseau et internet
-+ Mod-11 Exploiter le téléphone
++ [Mod-11](https://github.com/BH0791/locDVD/tree/master/chapter_11) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exploiter le téléphone
 + Mod-12 Sortir de l'application
 + Mod-13 Desing avancé
 + Mod-14 Images, son et vidéo
