@@ -11,4 +11,5 @@
 - Interprétation du format JSON
 - Création de la liste
 - Vue detaillée
-- Integrer un navigateur
+- *Optimisation possibles*
+- *Integrer un navigateur*
