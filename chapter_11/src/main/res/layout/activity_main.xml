@@ -15,7 +15,7 @@
             android:id="@+id/main_DrawerList"
             android:layout_width="240dp"
             android:layout_height="match_parent"
-            android:background="#CCFFFF"
+            android:background="#969696"
             android:layout_gravity="start"
             />
 

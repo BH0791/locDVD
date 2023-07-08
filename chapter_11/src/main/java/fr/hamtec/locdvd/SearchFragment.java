@@ -32,19 +32,10 @@ public class SearchFragment  extends Fragment {
     EditText searchText;
     Button searchButton;
     ListView searchList;
-    //String api_key="62d96ef75676fba47c537de195f1b3c6";
+    String api_key="62d96ef75676fba47c537de195f1b3c6";
     
     RequestQueue requestQueue;
     ImageLoader imageLoader;
-    
-    public static class Movie{
-        
-        public String title;
-        public String releaseDate;
-        public String movieId;
-        public String overview;
-        
-    }
     
     @Override
     public View onCreateView( LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState ) {
@@ -74,7 +65,6 @@ public class SearchFragment  extends Fragment {
     private void launchSearch( ) {
         //-->
         try {
-            String api_key = "62d96ef75676fba47c537de195f1b3c6";
             String title = URLEncoder.encode( searchText.getText().toString(), "UTF-8" );
             String url = String.format( "https://api.themoviedb.org/3/search/movie?api_key=%s&query=%s&language=fr-FR", api_key, title );
             Log.d( "Recherche", "url :" + url );
@@ -115,7 +105,7 @@ public class SearchFragment  extends Fragment {
                     
                     listOfMovies.add( movie );
                     
-                    Log.i( "HAMID", "Film : " + listOfMovies.get( i ) );
+                    
                     
                 }
                 
@@ -181,9 +171,8 @@ public class SearchFragment  extends Fragment {
                 public void onClick( View v ) {
                     detailLayout.setVisibility( View.VISIBLE );
                     detailButton.setVisibility( View.GONE );
-                    String api_key="62d96ef75676fba47c537de195f1b3c6";
                     
-                    String url = String.format( "https://api.themoviedb.org/3/movie/%s?api_key=62d96ef75676fba47c537de195f1b3c6&language=fr-FR", movie.movieId );
+                    String url = String.format( "https://api.themoviedb.org/3/movie/%s?api_key=%s&language=fr-FR", movie.movieId, api_key );
                     
                     JsonObjectRequest jsonObjectRequest;
                     jsonObjectRequest = new JsonObjectRequest( Request.Method.GET, url, null, new Response.Listener<JSONObject>(){
