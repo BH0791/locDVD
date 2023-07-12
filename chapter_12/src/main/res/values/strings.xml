@@ -26,6 +26,7 @@
     <string name = "x_dvd_inseres_dans_la_base" >"%d DVD insérés dans la base"</string >
     <string name = "recherche" >Recherche</string >
     <string name = "detail" >Détail</string >
+    <string name = "envoyer_une_notification" >Envoyer une notification</string >
     
     <string-array name = "drawer_Items">
         <item>"  Acceuil"</item>

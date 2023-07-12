@@ -50,5 +50,10 @@
             android:layout_height="wrap_content"
             android:text="@string/date_dernier_visionnage"
             android:id="@+id/setDateVisionnage"/>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/envoyer_une_notification"
+            android:id="@+id/setNotificacion"/>
 
 </LinearLayout>
