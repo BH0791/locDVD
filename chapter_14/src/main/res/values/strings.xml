@@ -1,0 +1,38 @@
+<resources >
+    <string name = "app_name" >locDVD</string >
+    <string name="annee_de_sortie">"Année de sortie : %d"</string>
+    <string name="titre_du_film">Titre du film</string>
+    <string name="annee_de_sortie_libelle">Année de sortie</string>
+    <string name="acteurs">Acteurs</string>
+    <string name="resume">Résumé</string>
+    <string name = "date_de_visionnage" >Date de visionnage</string >
+    <string name = "date_dernier_visionnage" >Date du dernier visionnage</string >
+    <string name = "date_dernier_visionnage_avec_valeur" >date dernier visionnage : %s</string >
+    <string name = "reinitialisez" >Réinitialiser la base de données</string >
+    <string name = "infos" >Informations</string >
+    <string name = "confirmer_reinitialisation_titre" >Confirmer</string >
+    <string name = "confirmer_reinitilisation_message" >Veuillez confirmer la réinitialisation</string >
+    <string name = "non" >Non</string >
+    <string name = "oui" >Oui</string >
+    <string name = "fermer" >Fermer</string >
+    <string name = "informations_message">
+        "L'application LocDVD est l'application compagnon
+        du livre 'Développez une application Android', aux édition ENI. Mise à jour par HamidB
+        \n\nElle a été entièrement développée en suivant le livre, et aborde les principaux domaine de la création d'applications
+        pour tous les terminaux Android : de la création du projet en passant par la création sur le Play Store,
+        l'adaptation pour tablette et smartphone, la programmation asynchrone, etc \n\n\n Bonne lecture !"
+    </string>
+    <string name = "initialisation_de_la_base_de_donnees" >"Initialisation de la base de données"</string >
+    <string name = "x_dvd_inseres_dans_la_base" >"%d DVD insérés dans la base"</string >
+    <string name = "recherche" >Recherche</string >
+    <string name = "detail" >Détail</string >
+    <string name = "envoyer_une_notification" >Envoyer une notification</string >
+    <string name = "partage" >Partage</string >
+    
+    <string-array name = "drawer_Items">
+        <item>"  Acceuil"</item>
+        <item>"  Nouveau DVD"</item>
+        <item>"  Recherche"</item>
+    </string-array>
+    
+</resources >
