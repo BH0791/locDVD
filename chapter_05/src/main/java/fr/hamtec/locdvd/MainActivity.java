@@ -20,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView( R.layout.activity_main );
         
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locdvd.prefs", Context.MODE_PRIVATE );
-        
-        if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
+        if ( !sharedPreferences.getBoolean( "valeurPref", false ) ){
             readEmbbeddedData();
         }
         
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 reader.close();
                 SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs",Context.MODE_PRIVATE);//??
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("enbeddedDataInsered",true);
+                editor.putBoolean("valeurPref",true);
                 editor.commit();
             } catch ( IOException e ) {
                 e.printStackTrace();

@@ -39,16 +39,8 @@ public class MainActivity extends AppCompatActivity {
         
         // L'invocation de la méthode readEmbeddeData est conditionnée à l'abscence de la préférence utilisateur
         SharedPreferences sharedPreferences = getSharedPreferences("fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );
-        
-        
-        if ( !sharedPreferences.getBoolean( "embeddedDataInserted", false ) ){
-            
-            if ( sharedPreferences.contains( "enbeddedDataInsered" ) ){
-                //- TODO
-            }else {
-                readEmbbeddedData();
-            }
-           
+        if ( !sharedPreferences.getBoolean( "valeurPref", false ) ){
+            readEmbbeddedData();
         }
         
     }
@@ -99,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     //-ici
                     SharedPreferences sharedPreferences = getSharedPreferences( "fr.hamtec.locDVD.prefs", Context.MODE_PRIVATE );//??
                     SharedPreferences.Editor editor = sharedPreferences.edit( );
-                    editor.putBoolean( "enbeddedDataInsered", true );
+                    editor.putBoolean( "valeurPref", true );
                     editor.apply( );
                 } catch ( IOException e ) {
                     e.printStackTrace( );
