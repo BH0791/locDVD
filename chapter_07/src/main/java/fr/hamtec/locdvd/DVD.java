@@ -170,6 +170,7 @@ public class DVD {
         }
 
         values.put("resume", this.resume);
+        values.put( "dateVisionnage", this.dateVisionnage );
 
         String whereClause = "id=" + String.valueOf(this.id);
         LocalSQLiteOpenHelper helper = new LocalSQLiteOpenHelper(context);
