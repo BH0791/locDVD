@@ -3,15 +3,15 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
-
+    
+    
+    
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp">
-
+        
         <!-- Zone de titre du film -->
         <TextView
                 android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/addDVD_titre"/>
-
+        
         <!-- zone de l'année de sortie -->
         <TextView
                 android:layout_width="wrap_content"
@@ -36,20 +36,20 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/addDVD_annee"
                 android:inputType="number"/>
-
+        
         <!-- zone acteurs -->
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+            
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/acteurs"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
-
+            
             <Button
                     android:id="@+id/addDVD_addActeur"
                     android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
         </LinearLayout>
-
+        
         <!-- zone du résumé -->
         <TextView
                 android:layout_width="wrap_content"
@@ -72,21 +72,21 @@
                 android:text="@string/resume"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-
+        
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="8"
                 android:id="@+id/addDVD_resume"
                 android:inputType="textCapSentences|textMultiLine"/>
-
+        
         <!-- Zone du bouton -->
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="right">
-
+            
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +95,6 @@
                     android:textSize="18sp"
                     android:textStyle="bold"/>
         </LinearLayout>
-
+    
     </LinearLayout>
 </ScrollView>
