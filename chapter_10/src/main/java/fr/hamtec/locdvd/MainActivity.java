@@ -212,7 +212,6 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
         transaction.commit();
     }
     private void startViewDVDActivity( long dvdId){
-        Log.i( "HB", "méthode-startViewDVDActivity " + dvdId);
         ViewDVDFragment viewDVDFragment = new ViewDVDFragment();
         Bundle bundle = new Bundle();
         bundle.putLong( "dvdId", dvdId );
@@ -233,12 +232,10 @@ public class MainActivity extends AppCompatActivity implements ListDVDFragment.O
     public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
         switch ( item.getItemId() ){
             case R.id.menu_reinitialiser -> {
-                Log.i( TAG, "onOptionsItemSelected: réinitialisation" );
                 ensureReInitializeApp();
                 return true;
             }
             case R.id.menu_information -> {
-                Log.i( TAG, "onOptionsItemSelected: information" );
                 showInformations();
                 return true;
             }

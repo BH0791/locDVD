@@ -30,7 +30,6 @@ public class ListDVDFragment extends Fragment {
         list.setOnItemClickListener( new AdapterView.OnItemClickListener( ) {
             @Override
             public void onItemClick( AdapterView < ? > parent, View view, int position, long id ) {
-                Log.i( "HB", "onItemClick: " + id );
                 if ( onDVDSelectedListener !=null ){
                     DVD selectedDvd = (DVD ) view.getTag();
                     onDVDSelectedListener.onDVDSelected( selectedDvd.getId() );
@@ -53,9 +52,6 @@ public class ListDVDFragment extends Fragment {
     public void onResume( ) {
         super.onResume( );
         updateDVDList();
-//        ArrayList <DVD> dvdList = DVD.getDVDList( getActivity() );
-//        DVDAdapter dvdAdapter = new DVDAdapter( getActivity(), dvdList );
-//        list.setAdapter( dvdAdapter );
     }
     public void updateDVDList(){
         ArrayList<DVD> dvdList = DVD.getDVDList( getActivity() );

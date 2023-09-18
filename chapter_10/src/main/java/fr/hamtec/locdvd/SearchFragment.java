@@ -86,7 +86,6 @@ public class SearchFragment extends Fragment {
             var api_key = "62d96ef75676fba47c537de195f1b3c6";
             var title = URLEncoder.encode( searchText.getText( ).toString( ), "UTF-8" );
             var url = String.format( "https://api.themoviedb.org/3/search/movie?api_key=%s&query=%s&language=fr-FR", api_key, title );
-            Log.d( "Recherche", "url :" + url );
             
             JsonObjectRequest request = new JsonObjectRequest(
                     Request.Method.GET,
@@ -125,7 +124,6 @@ public class SearchFragment extends Fragment {
                     
                     listOfMovies.add( movie );
                     
-                    Log.i( "HAMID", "Film : " + listOfMovies.get( i ) );
                     
                 }
                 
@@ -141,7 +139,6 @@ public class SearchFragment extends Fragment {
     private Response.ErrorListener errorListener = new Response.ErrorListener( ) {
         @Override
         public void onErrorResponse( VolleyError error ) {
-            //-->
             Log.d( TAG, "Erreur " + error.getMessage( ) );
         }
     };
@@ -192,8 +189,6 @@ public class SearchFragment extends Fragment {
                 public void onClick( View v ) {
                     detailLayout.setVisibility( View.VISIBLE );
                     detailButton.setVisibility( View.GONE );
-                    
-                    //String url = String.format( "https://api.themoviedb.org/3/movie/%s?api_key=62d96ef75676fba47c537de195f1b3c6&language=fr-FR", movie.movieId );
                     String url = String.format( "https://api.themoviedb.org/3/movie/%s?api_key=%s&language=fr-FR", movie.movieId, api_key );
                     
                     JsonObjectRequest jsonObjectRequest;
