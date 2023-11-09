@@ -1,3 +1,6 @@
 <resources >
     <string name = "app_name" >locDVD</string >
+    <string name = "demande_permission_titre" >"Demande de permission"</string >
+    <string name = "explication_permission" >"L\'application a besoin de cette permission."</string >
+    <string name = "permission_obligatoire" >"Permission obligatoire"</string >
 </resources >
