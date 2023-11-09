@@ -15,8 +15,8 @@ LocDVD permet notament de visualiser une liste de DVD, d'ajouter des DVD en sais
 + [Mod-11](https://github.com/BH0791/locDVD/tree/master/chapter_11) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exploiter le téléphone
 + [Mod-12](https://github.com/BH0791/locDVD/tree/master/chapter_12) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sortir de l'application
 + [Mod-13](https://github.com/BH0791/locDVD/tree/master/chapter_13) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desing avancé
-+ [Mod-14](https://github.com/BH0791/locDVD/tree/master/chapter_14) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Images, son et vidéo
-+ Mod-15 Utilisation du Bluetooth Low Energy
++ [Mod-14](https://github.com/BH0791/locDVD/tree/master/chapter_14) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;son et vidéo
++ [Mod-15](https://github.com/BH0791/locDVD/tree/master/chapter_15) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Utilisation du Bluetooth Low Energy
 + Mod-16 Publier une application
 +  *En cours d'étude et de développement.*
 
