@@ -1,5 +1,4 @@
 package fr.hamtec.ble;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -46,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     };
     //! API-21
     ScanCallback scanCallback = new ScanCallback( ) {
+        
         @Override
         public void onScanResult( int callbackType, ScanResult result ) {
+            Log.d( TAG, "********** onScanResult: " + result.getRssi() );
             super.onScanResult( callbackType, result );
             onDeviceDetected( result.getDevice( ), result.getRssi( ) );
         }
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     @Override
     protected void onResume( ) {
         super.onResume( );
-        Log.d( TAG, "onResume: " );
+        Log.d( TAG, "********** onResume ********** " );
         
     }
     
@@ -155,11 +156,13 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     }
     
     private void askPermission( ) {
-        requestPermissions( new String[]{ Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN }, REQUEST_PERMISSION );
+        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ) {
+            requestPermissions( new String[]{ Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN }, REQUEST_PERMISSION );
+        }
     }
     
     private void startBLEScan( ) {
-        //text.setText( "Scan en activité !" );
+        text.setText( "Scan en activité... !" );
         if ( bluetoothManager == null ) {
             bluetoothManager = ( BluetoothManager ) getSystemService( Context.BLUETOOTH_SERVICE );
         }
@@ -186,11 +189,11 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         if ( Build.VERSION.SDK_INT < 21 ) {
             // ! <uses-permission android:name = "android.permission.BLUETOOTH_SCAN"/>
             bluetoothAdapter.startLeScan( leScanCallback );
-            Log.d( TAG, "Scan lancé en version 18" );
+            Log.d( TAG, "********** Scan lancé en version 18" );
         } else {
             bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner( );
             bluetoothLeScanner.startScan( scanCallback );
-            Log.d( TAG, "Scan lancé en version 21" );
+            Log.d( TAG, "********** Scan lancé en version 21 " );
         }
         //? Arrêt du scan au bout de 5s
         new Handler( ).postDelayed( new Runnable( ) {
@@ -213,15 +216,17 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     }
     
     private void onDeviceDetected( BluetoothDevice device, int rssi ) {
-        String info = "Objet détécté : ";
+        String info = "Objet détécté... : ";
         //! Faire une demande de permission pour device.getName()
         if ( ActivityCompat.checkSelfPermission( this, Manifest.permission.BLUETOOTH_CONNECT ) != PackageManager.PERMISSION_GRANTED ) {
             if ( shouldShowRequestPermissionRationale( Manifest.permission.BLUETOOTH_CONNECT ) ) {
+                Log.d( TAG, "********** onDeviceDetected: demande de permission device.getName()" );
                 boitDeDialog( );
             } else {
                 askPermission( );
             }
         }
+        Log.d( TAG, "Informations ==> " + rssi + " __ " + device.getAddress() );
         info += "\nNom : " + device.getName( );
         info += "\nAdresse : " + device.getAddress();
         info += "\nRSSI : " + rssi;
@@ -229,6 +234,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         
         bluetoothGatt = device.connectGatt( this, false, bluetoothGattCallback );
     }
+    
+    /**
+     * Information
+     * ' Information
+     * ! Méthode de demande de connection Bluetooth
+     * ? Appel de boîte de dialogue
+     *
+     */
     private void connectBluetooth(){
         if ( shouldShowRequestPermissionRationale( Manifest.permission.BLUETOOTH_CONNECT ) ) {
             boitDeDialog( );
