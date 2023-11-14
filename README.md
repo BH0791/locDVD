@@ -23,4 +23,4 @@ LocDVD permet notament de visualiser une liste de DVD, d'ajouter des DVD en sais
 
 ---
 > ###### Support livre 
->> <q>*Sylvain HEBUTENER (ENI) 2017*<br>*Gradle-8.4*<br>*jdk-20*<br>*Année:2023*
+>> <q>*Sylvain HEBUTENER (ENI) 2017*</q><br>*Gradle-8.4*<br>*jdk-20*<br>*Année:2023*
