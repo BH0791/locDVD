@@ -132,14 +132,30 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             if ( shouldShowRequestPermissionRationale( Manifest.permission.ACCESS_FINE_LOCATION ) ) {
                 boitDeDialog( );
             } else {
-                askPermission( );
+                askPermissionAccesFineLocation( );
             }
             
         } else {
             startBLEScan( );
         }
     }
+    private void boiteDeDialogAccessFineLocation(){
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        builder.setTitle( R.string.demande_permission_titre );
+        builder.setMessage( R.string.explication_permission );
     
+        builder.setNegativeButton( "Non", ( dialog, which ) -> {
+            //fermeture de l'application...
+            Toast.makeText( MainActivity.this, R.string.permission_obligatoire, Toast.LENGTH_LONG ).show( );
+            finish( );
+        } );
+    
+        builder.setPositiveButton( "Oui", ( dialog, which ) -> askPermission( ) );
+        builder.show( );
+    }
+    private void askPermissionAccesFineLocation(){
+        requestPermissions( new String[]{ Manifest.permission.ACCESS_FINE_LOCATION }, REQUEST_PERMISSION );
+    }
     private void boitDeDialog( ) {
         AlertDialog.Builder builder = new AlertDialog.Builder( this );
         builder.setTitle( R.string.demande_permission_titre );
@@ -151,13 +167,15 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             finish( );
         } );
         
-        builder.setPositiveButton( "Oui", ( dialog, which ) -> askPermission( ) );
+        builder.setPositiveButton( "Oui", ( dialog, which ) -> askPermissionAccesFineLocation() );
         builder.show( );
     }
     
     private void askPermission( ) {
+        //! j'ai plus le problème mais j'ai deux boîtes de dialogue/askPermission
+        // TODO A voir pour optimisation...
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ) {
-            requestPermissions( new String[]{ Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN }, REQUEST_PERMISSION );
+            requestPermissions( new String[]{ Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN }, REQUEST_PERMISSION );
         }
     }
     
